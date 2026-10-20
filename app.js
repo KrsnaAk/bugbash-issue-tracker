@@ -64,3 +64,20 @@ function renderAssigneeSummary() {
   summary.textContent = Object.entries(counts).map(([key, value]) => key + ": " + value).join(" · "); host.querySelector("h2")?.after(summary);
 }
 renderAssigneeSummary();
+
+
+// Issue expansion: triage summary and unassigned queue.
+(() => {
+  const baseRender = render; let showUnassigned = false;
+  const enhance = () => {
+    if (document.querySelector("#triage-tools")) return;
+    const panel = document.createElement("section"); panel.id = "triage-tools"; panel.className = "item";
+    panel.innerHTML = '<strong>Triage tools</strong><label class="muted small"><input id="unassigned-only" type="checkbox"/> Unassigned only</label><p id="triage-summary" class="muted small"></p>';
+    document.querySelector("#app")?.append(panel);
+    const update = () => { const rows = showUnassigned ? issues.filter((issue) => !issue.assignee) : issues; panel.querySelector("#triage-summary").textContent = rows.length + " issue(s) in triage"; };
+    panel.querySelector("#unassigned-only").onchange = (event) => { showUnassigned = event.target.checked; update(); };
+    update();
+  };
+  render = () => { baseRender(); enhance(); };
+  enhance();
+})();
