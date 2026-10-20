@@ -54,3 +54,13 @@ function render() {
   );
 }
 render();
+
+
+// Added organizer feature: assignee totals.
+function renderAssigneeSummary() {
+  const host = document.querySelector("#app"); if (!host || document.querySelector("#assignee-summary")) return;
+  const counts = issues.reduce((out, issue) => { const key = issue.assignee || "Unassigned"; out[key] = (out[key] || 0) + 1; return out; }, {});
+  const summary = document.createElement("p"); summary.id = "assignee-summary"; summary.className = "muted small";
+  summary.textContent = Object.entries(counts).map(([key, value]) => key + ": " + value).join(" · "); host.querySelector("h2")?.after(summary);
+}
+renderAssigneeSummary();
