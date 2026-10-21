@@ -1,25 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#111827" />
-    <title>Mini Issue Tracker · Bug Bash Arena</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <header class="masthead">
-        <a href="#" class="eyebrow">BUG BASH ARENA</a>
-        <h1>Mini Issue Tracker</h1>
-        <p>Triage a small queue without losing ownership or priority.</p>
-      </header>
-      <section id="app" class="card" aria-live="polite"></section>
-      <p class="footer-note">
-        Starter challenge · Work on your branch, commit your fixes, and submit
-        an immutable SHA.
-      </p>
-    </main>
-    <script src="app.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini Issue Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Mini Issue Tracker</h1>
+
+    <!-- Create Issue Form -->
+    <form id="create-issue-form" class="card">
+      <h3>Create New Issue</h3>
+      <div class="form-group">
+        <input type="text" id="new-title" placeholder="Issue title..." required />
+        <select id="new-priority">
+          <option value="low">Low Priority</option>
+          <option value="medium" selected>Medium Priority</option>
+          <option value="high">High Priority</option>
+          <option value="critical">Critical Priority</option>
+        </select>
+        <input type="text" id="new-assignee" placeholder="Assignee name (optional)" />
+        <button type="submit">Add Issue</button>
+      </div>
+    </form>
+
+    <!-- Toolbar Filters & Search -->
+    <div class="toolbar card">
+      <input type="text" id="filter-search" placeholder="Search by title, ID, or assignee..." />
+      
+      <select id="filter-status">
+        <option value="all">All Statuses</option>
+        <option value="open">Open</option>
+        <option value="in_progress">In Progress</option>
+        <option value="closed">Closed</option>
+      </select>
+
+      <select id="filter-priority">
+        <option value="all">All Priorities</option>
+        <option value="critical">Critical</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
+
+      <select id="sort-by">
+        <option value="priority-desc">Sort: Priority (High to Low)</option>
+        <option value="priority-asc">Sort: Priority (Low to High)</option>
+        <option value="id-asc">Sort: ID</option>
+      </select>
+    </div>
+
+    <!-- Issue Cards Container -->
+    <div id="issue-list" class="issue-list"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
 </html>
