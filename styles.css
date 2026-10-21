@@ -1,179 +1,267 @@
+/* Color Palette & CSS Variables */
 :root {
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-  color: #e5eefb;
-  background: #0a1020;
+  --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  --card-bg: #ffffff;
+  --text-main: #2d3748;
+  --text-muted: #718096;
+  --primary-color: #4f46e5;
+  --primary-hover: #4338ca;
+  --border-color: #e2e8f0;
+  
+  /* Priority Colors */
+  --priority-critical-bg: #fee2e2;
+  --priority-critical-text: #991b1b;
+  --priority-high-bg: #ffedd5;
+  --priority-high-text: #9a3412;
+  --priority-medium-bg: #fef3c7;
+  --priority-medium-text: #92400e;
+  --priority-low-bg: #dcfce7;
+  --priority-low-text: #166534;
+  
+  /* Status Badge Colors */
+  --status-open-bg: #e0f2fe;
+  --status-open-text: #075985;
+  --status-progress-bg: #fef9c3;
+  --status-progress-text: #854d0e;
+  --status-closed-bg: #f3f4f6;
+  --status-closed-text: #374151;
 }
+
 * {
   box-sizing: border-box;
-}
-body {
   margin: 0;
-  background:
-    radial-gradient(circle at 80% 0, #193c59, transparent 34%), #0a1020;
+  padding: 0;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+}
+
+body {
+  background: var(--bg-gradient);
   min-height: 100vh;
+  padding: 40px 20px;
+  color: var(--text-main);
 }
-.app-shell {
-  max-width: 940px;
-  margin: auto;
-  padding: 52px 22px;
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
 }
-.masthead {
-  margin-bottom: 26px;
+
+h1 {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 2.2rem;
+  color: #1e293b;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
-.eyebrow {
-  color: #70e8dc;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-decoration: none;
-}
-.masthead h1 {
-  font-size: clamp(2rem, 6vw, 3.7rem);
-  letter-spacing: -0.06em;
-  margin: 12px 0 8px;
-}
-.masthead p {
-  max-width: 620px;
-  color: #9bb0c7;
-  line-height: 1.6;
-}
+
+/* Card & Form Base Styling */
 .card {
-  background: #101b31;
-  border: 1px solid #27435c;
-  border-radius: 18px;
-  padding: 24px;
-  box-shadow: 0 18px 70px #0004;
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
 }
-.row {
+
+.card h3 {
+  margin-bottom: 14px;
+  font-size: 1.1rem;
+  color: #334155;
+}
+
+.form-group {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
 }
-.space {
-  justify-content: space-between;
+
+.form-group input,
+.form-group select,
+.toolbar input,
+.toolbar select {
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  background-color: #f8fafc;
+  transition: all 0.2s ease;
 }
-.stack {
+
+.form-group input:focus,
+.form-group select:focus,
+.toolbar input:focus,
+.toolbar select:focus {
+  border-color: var(--primary-color);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.form-group input[type="text"] {
+  flex: 2;
+  min-width: 200px;
+}
+
+.form-group select {
+  flex: 1;
+  min-width: 140px;
+}
+
+button[type="submit"] {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Toolbar Controls */
+.toolbar {
   display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.2fr;
   gap: 12px;
 }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 13px;
+
+@media (max-width: 768px) {
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
 }
-.tile,
-.item {
-  background: #13243d;
-  border: 1px solid #2a4a67;
+
+/* Issue List & Card Elements */
+.issue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.issue-card {
+  background: var(--card-bg);
   border-radius: 12px;
-  padding: 15px;
+  padding: 18px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border-left: 5px solid var(--primary-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.muted {
-  color: #9bb0c7;
+
+.issue-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
-.small {
-  font-size: 0.84rem;
+
+.issue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
 }
-.label {
-  font-size: 0.76rem;
-  color: #91a7bf;
+
+.issue-id {
   font-weight: 700;
-  letter-spacing: 0.07em;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+/* Colorful Priority Badges */
+.badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
-button,
-input,
-select,
-textarea {
-  font: inherit;
+
+.priority-critical {
+  background-color: var(--priority-critical-bg);
+  color: var(--priority-critical-text);
 }
-button {
-  border: 0;
-  border-radius: 9px;
-  padding: 10px 14px;
-  background: #72e7dc;
-  color: #07151f;
-  font-weight: 800;
-  cursor: pointer;
+
+.priority-high {
+  background-color: var(--priority-high-bg);
+  color: var(--priority-high-text);
 }
-button.secondary {
-  background: #213750;
-  color: #d9ebfb;
-  border: 1px solid #395b78;
+
+.priority-medium {
+  background-color: var(--priority-medium-bg);
+  color: var(--priority-medium-text);
 }
-button.danger {
-  background: #5b293a;
-  color: #ffd9e2;
+
+.priority-low {
+  background-color: var(--priority-low-bg);
+  color: var(--priority-low-text);
 }
-input,
-select,
-textarea {
-  width: 100%;
-  border: 1px solid #35536f;
-  border-radius: 9px;
-  background: #091426;
-  color: #eaf4ff;
-  padding: 10px;
+
+.issue-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 14px;
 }
-textarea {
-  min-height: 100px;
-}
-.list {
-  display: grid;
-  gap: 9px;
-  margin-top: 16px;
-}
-.item {
+
+/* Controls inside Issue Card */
+.issue-controls {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
 }
-.item strong {
-  display: block;
+
+.issue-controls label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
 }
-.pill {
-  background: #233d57;
-  color: #a8d5ee;
-  border-radius: 999px;
-  padding: 4px 8px;
-  font-size: 0.75rem;
+
+.status-select,
+.assignee-input {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  background-color: #f8fafc;
 }
-.ok {
-  color: #83e5b7;
+
+.btn-delete {
+  background-color: transparent;
+  color: #ef4444;
+  border: 1px solid #fca5a5;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: auto;
 }
-.warning {
-  color: #ffd27d;
+
+.btn-delete:hover {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border-color: #f87171;
 }
-.danger-text {
-  color: #ff9eaf;
-}
-.footer-note {
-  color: #7088a2;
-  font-size: 0.8rem;
-  margin: 18px 4px;
-}
-.bar {
-  height: 9px;
-  border-radius: 10px;
-  background: #233c57;
-  overflow: hidden;
-}
-.bar i {
-  display: block;
-  height: 100%;
-  background: #72e7dc;
-}
-@media (max-width: 600px) {
-  .app-shell {
-    padding: 30px 15px;
-  }
-  .card {
-    padding: 16px;
-  }
-  .item {
-    align-items: flex-start;
-    flex-direction: column;
-  }
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
 }
